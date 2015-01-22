@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">MaterialDesignTemplate</string>
+    <string name="action_settings">Settings</string>
+    <string name="main_fragment_default_text">Main fragment</string>
+    <string name="drawer_fragment_default_text">Drawer fragment</string>
+</resources>
