@@ -1,4 +1,4 @@
-package com.surfacetension.materialdesigntemplate;
+package com.simonkenny.altbubblebeta;
 
 import android.content.Context;
 import android.content.res.TypedArray;

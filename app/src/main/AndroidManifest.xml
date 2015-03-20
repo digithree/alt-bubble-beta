@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.surfacetension.materialdesigntemplate">
+    package="com.simonkenny.altbubblebeta">
 
     <application
         android:allowBackup="true"

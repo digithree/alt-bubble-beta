@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:transitionName="@string/transition_interaction_cell"
+    tools:context=".MainActivity"
+    android:id="@+id/interaction_detail_fragment">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/text_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:text="@string/interaction_detail_title"
+            android:paddingLeft="16dp"
+            android:paddingBottom="16dp"
+            />
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            >
+
+            <TextView
+                android:id="@+id/text_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:singleLine="false"
+                android:text="@string/interaction_detail_dummy"
+                android:padding="16dp"
+                />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            >
+
+            <EditText
+                android:id="@+id/edittext_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="32sp"
+                android:singleLine="true"
+                android:hint="Tap here"
+                android:layout_alignParentLeft="true"
+                android:paddingLeft="8dp"
+                android:layout_marginRight="96sp"
+                />
+
+            <Button
+                android:id="@+id/button_verify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="Verify"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="32sp"
+                android:textColor="@color/white"
+                android:background="@color/primary"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

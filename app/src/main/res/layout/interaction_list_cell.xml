@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:transitionName="@string/transition_interaction_cell"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground"
+    >
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        >
+        <!--72dp-->
+
+        <ImageView
+            android:id="@+id/action_audio"
+            android:src="@drawable/ic_action_headphones"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:paddingLeft="16dp"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:singleLine="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:paddingTop="8dp"
+            android:paddingLeft="80dp"
+            />
+
+        <TextView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/text_descript"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:layout_below="@+id/text_title"
+            android:paddingTop="8dp"
+            android:paddingLeft="80dp"
+            />
+
+        <TextView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/text_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:paddingTop="8dp"
+            android:paddingRight="16dp"
+            />
+        <!-- paddingRight: 72dp -->
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

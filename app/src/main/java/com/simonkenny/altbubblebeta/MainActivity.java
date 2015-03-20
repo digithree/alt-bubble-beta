@@ -1,20 +1,25 @@
-package com.surfacetension.materialdesigntemplate;
+package com.simonkenny.altbubblebeta;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.os.CountDownTimer;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -33,11 +38,14 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new MainFragment())
+            getFragmentManager().beginTransaction()
+                    .add(R.id.container, new MainFragment(),"expanded")
                     .commit();
-            getSupportFragmentManager().beginTransaction()
+            getFragmentManager().beginTransaction()
                     .add(R.id.drawer_container, new DrawerFragment())
+                    .commit();
+            getFragmentManager().beginTransaction()
+                    .add(R.id.playing_container, new PlayingFragment())
                     .commit();
         }
 
@@ -82,6 +90,16 @@ public class MainActivity extends ActionBarActivity {
 
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         GlobalSettings.getInstance().setSharedPreferences(sharedPreferences);
+
+        // add debug puzzble data
+        // Add test data
+        AppSupport.getInstance().getDataset().add(new InteractionData("Audio 1","Intro",true,true));
+        AppSupport.getInstance().getDataset().add(new InteractionData("Enter Code","Journey",false,true));
+        AppSupport.getInstance().getDataset().add(new InteractionData("?????","???",false,false));
+        AppSupport.getInstance().getDataset().add(new InteractionData("?????","???",false,false));
+        AppSupport.getInstance().getDataset().add(new InteractionData("?????","???",false,false));
+        // Force list update
+        AppSupport.getInstance().getmAdapter().notifyDataSetChanged();
     }
 
     /* Called whenever we call invalidateOptionsMenu() */
@@ -127,13 +145,17 @@ public class MainActivity extends ActionBarActivity {
             mDrawerLayout.closeDrawers();
             return;
         }
-        super.onBackPressed();
+        getFragmentManager().popBackStack();
+        //super.onBackPressed();
     }
 
     /**
      * Fragment in main panel of app
      */
     public static class MainFragment extends Fragment {
+
+        private RecyclerView mRecyclerView;
+        private RecyclerView.LayoutManager mLayoutManager;
 
         public MainFragment() {
         }
@@ -145,7 +167,19 @@ public class MainActivity extends ActionBarActivity {
 
             final Context mContext = this.getActivity();
 
-            // TODO : build view
+            mRecyclerView = (RecyclerView) rootView.findViewById(R.id.event_recycler_view);
+            //mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+
+            // use this setting to improve performance if you know that changes
+            // in content do not change the layout size of the RecyclerView
+            mRecyclerView.setHasFixedSize(true);
+
+            // use a linear layout manager
+            mLayoutManager = new LinearLayoutManager(mContext);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+
+            // specify an adapter (see also next example)
+            mRecyclerView.setAdapter(AppSupport.getInstance().getmAdapter());
 
             return rootView;
         }
@@ -169,6 +203,62 @@ public class MainActivity extends ActionBarActivity {
             // TODO : build view
 
             return rootView;
+        }
+    }
+
+    public static class PlayingFragment extends Fragment {
+
+        private boolean timerActive = false;
+        private com.gc.materialdesign.views.ProgressBarDeterminate audioProgress;
+
+        public PlayingFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.playing_layout_fragment, container, false);
+
+            final Context mContext = this.getActivity();
+
+            audioProgress = ((com.gc.materialdesign.views.ProgressBarDeterminate)rootView.findViewById(R.id.audio_progress));
+
+            return rootView;
+        }
+
+        public void onResume() {
+            super.onResume();
+            startAlarm();
+        }
+
+        public void onPause() {
+            super.onPause();
+            cancelAlarm();
+        }
+
+        public void startAlarm() {
+            timerActive  = true;
+            // set up alarm
+            new CountDownTimer(60000, 60) { //make tick small, might crash it though?
+                private int count = 0;
+                public void onTick(long millisUntilFinished) {
+                    if( audioProgress != null ) {
+                        audioProgress.setProgress(count++);
+                    }
+                }
+
+                public void onFinish() {
+                    if( timerActive ) {
+                        startAlarm();
+                    } else {
+                        Log.d("MainActivity", "Timer is disabled");
+                    }
+                }
+            }.start();
+        }
+
+        public void cancelAlarm() {
+            timerActive = false;
         }
     }
 }

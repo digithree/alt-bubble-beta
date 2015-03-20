@@ -1,4 +1,4 @@
-package com.surfacetension.materialdesigntemplate;
+package com.simonkenny.altbubblebeta;
 
 /*
 * Copyright 2014 Google Inc.
